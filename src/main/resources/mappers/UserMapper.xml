@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+  
+<mapper namespace="cn.tedu.store.mapper.UserMapper">
+<!-- 添加用户信息 -->
+<!-- void insert(User user) -->
+<insert id="insert" 
+	parameterType="cn.tedu.store.bean.User">
+		insert into t_user(
+			username,password, 
+			phone,email,gender, 
+			created_user,created_time, 
+			modified_user,modified_time
+		) values(
+			#{username},#{password},
+			#{phone},#{email},#{gender},
+			#{createdUser},#{createdTime},
+			#{modifiedUser},#{modifiedTime}
+		);
+
+</insert>
+<select id="getUserByUsername" resultType="cn.tedu.store.bean.User">
+	select
+		id,username,password,
+		phone,email,gender,
+		created_user as createdUser,
+		created_time as createdTime,
+		modified_user as modifiedUser,
+		modified_time as modifiedTime
+	from
+		t_user
+	where
+		username=#{username};
+
+</select>
+  <select id="getCountByEmail" resultType="java.lang.Integer">
+  		select 
+  			count(email) 
+  		from 
+  			t_user 
+  		where 
+  			email=#{email}
+  </select>
+  <select id="getCountByPhone" resultType="java.lang.Integer">
+  		select 
+  			count(Phone) 
+  		from 
+  			t_user
+  		where 
+  			phone=#{phone}
+  </select>
+  <update id="update"
+  parameterType="cn.tedu.store.bean.User">
+  	update t_user
+  	set
+  		<if test="password != null" >
+  			password=#{password},
+  		</if>
+  		<if test="username != null" >
+  			username=#{username},
+  		</if>
+  		<if test="phone != null" >
+  			phone=#{phone},
+  		</if>
+  		<if test="gender != null" >
+  			gender=#{gender},
+  		</if>
+  		<if test="email != null" >
+  			email=#{email},
+  		</if>
+  		modified_user=#{modifiedUser},
+  		modified_time=#{modifiedTime}
+  	where
+  		id=#{id}
+  </update>
+  <select id="getUserById" resultType="cn.tedu.store.bean.User">
+  		select
+  			id,username,password,phone,
+  			email,gender,
+  			created_user as createdUser,
+  			created_time as createdTime,
+  			modified_user as modifiedUser,
+  			modified_time as modifiedTime
+  			from
+				t_user
+			where
+				id=#{id};
+  </select>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
