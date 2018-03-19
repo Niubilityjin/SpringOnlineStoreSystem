@@ -35,7 +35,7 @@
 
         <dl class="address">
                 <dt>收货地址<img src="${pageContext.request.contextPath}/images/myOrder/myOrder1.png"></dt>
-				<dd><a href="addressAdmin.html">地址管理</a></dd>
+				<dd><a href="${pageContext.request.contextPath}/address/showAddress.do">地址管理</a></dd>
             </dl>
             <dl class="count_managment">
                 <dt >帐号管理<img src="${pageContext.request.contextPath}/images/myOrder/myOrder1.png"></dt>

@@ -151,5 +151,7 @@ public class test {
 			IUserService.class);
 		userService.updatePerson(1, "laojin3", 1, "", "laojin123@qq.com");
 	}
+	
+	
 
 }

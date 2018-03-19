@@ -2,6 +2,7 @@ package cn.tedu.store.bean;
 
 import java.io.Serializable;
 
+
 public class ResponseResult<T> implements Serializable{
 	/**
 	 * 
@@ -18,6 +19,9 @@ public class ResponseResult<T> implements Serializable{
 		this.data = data;
 		
 	}
+	
+	
+
 	public ResponseResult(Integer state, String message) {
 		super();
 		this.state = state;

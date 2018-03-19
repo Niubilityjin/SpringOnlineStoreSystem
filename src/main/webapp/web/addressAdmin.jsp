@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -10,24 +13,7 @@
 </head>
 <body>
 <!-- 页面顶部-->
-<header id="top" class="fixed_nav">
-    <div id="logo" class="lf">
-        <img class="animated jello" src="../images/header/logo.png" alt="logo"/>
-    </div>
-    <div id="top_input" class="lf">
-        <input id="input" type="text" placeholder="请输入您要搜索的内容"/>
-        <a href="search.html" class="rt"><img id="search" src="../images/header/search.png" alt="搜索"/></a>
-    </div>
-    <div class="rt">
-        <ul class="lf">
-            <li><a href="favorites.html" title="我的收藏"><img class="care" src="../images/header/care.png" alt=""/></a><b>|</b></li>
-            <li><a href="orders.html" title="我的订单"><img class="order" src="../images/header/order.png" alt=""/></a><b>|</b></li>
-            <li><a href="cart.html" title="我的购物车"><img class="shopcar" src="../images/header/shop_car.png" alt=""/></a><b>|</b></li>
-            <li><a href="help.html">帮助</a><b>|</b></li>
-            <li><a href="login.html">登录</a></li>
-        </ul>
-    </div>
-</header>
+<jsp:include page="header.jsp"/>
 <!-- nav主导航-->
 <nav id="nav">
     <ul>
@@ -45,49 +31,7 @@
 <!--我的订单内容区域 #container-->
 <div id="container" class="clearfix">
     <!-- 左边栏-->
-    <div id="leftsidebar_box" class="lf">
-        <div class="line"></div>
-        <dl class="my_order">
-            <dt >我的订单
-                <img src="../images/myOrder/myOrder2.png">
-            </dt>
-            <dd class="first_dd"><a href="orders.html">全部订单</a></dd>
-            <dd>
-                <a href="#">
-                    待付款
-                    <span><!--待付款数量--></span>
-                </a>
-            </dd>
-            <dd>
-                <a href="#">
-                    待收货
-                    <span><!--待收货数量-->1</span>
-                </a>
-            </dd>
-            <dd>
-                <a href="#">
-                    待评价<span><!--待评价数量--></span>
-                </a>
-            </dd>
-            <dd>
-                <a href="#">退货退款</a>
-            </dd>
-        </dl>
-
-        <dl class="footMark">
-            <dt >我的优惠卷<img src="../images/myOrder/myOrder1.png"></dt>
-        </dl>
-        <dl class="address">
-                <dt>收货地址<img src="../images/myOrder/myOrder1.png"></dt>
-				<dd><a href="addressAdmin.html">地址管理</a></dd>
-        </dl>
-       <dl class="count_managment">
-            <dt >帐号管理<img src="../images/myOrder/myOrder1.png"></dt>
-            <dd class="first_dd"><a href="personage.html">我的信息</a></dd>
-            <dd><a href="personal_icon.html">个人头像</a></dd>
-            <dd><a href="personal_password.html">安全管理</a></dd>
-        </dl>
-    </div>
+    <jsp:include page="left.jsp"/>
    <!-- 右边栏-->
     <div class="rightsidebar_box rt">	
         <!--标题栏-->
@@ -102,10 +46,19 @@
 	                <span class="red">*</span><span class="kuan">收货人：</span><input type="text" name="receiverName" id="receiverName"/>
 	            </div>
 	            <!--收货人所在城市等信息-->
-	            <div data-toggle="distpicker" class="address_content">
-					 <span class="red">*</span><span class="kuan">省&nbsp;&nbsp;份：</span><select data-province="---- 选择省 ----" id="receiverState"></select>
-					  城市：<select data-city="---- 选择市 ----" id="receiverCity"></select>
-					  区/县：<select data-district="---- 选择区 ----" id="receiverDistrict"></select>
+	            <div  class="address_content">
+					 <span class="red">*</span><span class="kuan">省&nbsp;&nbsp;份：</span>
+					 <select data-province="---- 选择省 ----" 
+					 id="receiverState"
+					 name="receiverState"
+					 onchange="getCity(this.value,-1,-1)"></select>
+					  城市：<select data-city="---- 选择市 ----" 
+					  id="receiverCity"
+					  name="receiverCity"
+					   onchange="getArea(this.value,-1)"></select>
+					  区/县：<select data-district="---- 选择区 ----" 
+					  id="receiverDistrict"
+					  name="receiverDistrict"></select>
 				</div> 
 	            
 	            
@@ -245,6 +198,69 @@
 <script type="text/javascript" src="../js/distpicker.js"></script>
 <script type="text/javascript" src="../js/personal.js"></script>
 <script type="text/javascript">
+$(function(){
+	getProvince("-1","-1","-1");
+});
+function getArea(cityCode,areaCode){
+	$.ajax({
+		"url":"../dict/showArea.do",
+		"data":"cityCode="+cityCode,
+		"type":"GET",
+		"dataType":"json",
+		"success":function(obj){
+			$("#receiverDistrict").html("<option value='0'>----选择地区----</option>");
+			for(var i=0;i<obj.data.length;i++){
+				var str="<option value="+obj.data[i].areaCode+">"+obj.data[i].areaName+"</option>";
+				$("#receiverDistrict").append(str);
+			}
+		}
+	});
+};
+//当省列表发生改变时,调用getCity函数获取城市信息
+function getCity(provinceCode,cityCode,areaCode){
+	$.ajax({
+		"url":"../dict/showCity.do",
+		"data":"provinceCode="+provinceCode,
+		"type":"GET",
+		"dataType":"json",
+		"success":function(obj){
+			$("#receiverCity").html("<option value='0'>----选择市----</option>");
+			for(var i=0;i<obj.data.length;i++){
+				var str="<option value="+obj.data[i].cityCode+">"+obj.data[i].cityName+"</option>";
+				$("#receiverCity").append(str);
+			}
+		}
+	});
+	getArea(cityCode,areaCode);
+};
+//加载页面完成,就调用../dict/showProvince.do
+
+$(function(provinceCode,cityCode,areaCode){
+		$.ajax({
+			"url":"../dict/showProvince.do",
+			"data":"",
+			"type":"GET",
+			"dataType":"json",
+			"success":function(obj){
+				$("#receiverState").html("<option value='0'>----选择省----</option>");
+				for(var i=0;i<obj.data.length;i++){
+					var str="<option value="+obj.data[i].provinceCode+">"+obj.data[i].provinceName+"</option>";
+					
+					$("#receiverState").append(str);
+				}
+
+			}
+			
+			
+		});
+		getCity(provinceCode,cityCode,areaCode);
+});
+$(function(){
+	  $("#leftsidebar_box dd").hide();
+	    $("#leftsidebar_box .address dd").show();
+	    $("#leftsidebar_box dt img").attr("src","../images/myOrder/myOrder1.png");
+      $("#leftsidebar_box .address6  ").find('img').attr("src","../images/myOrder/myOrder2.png");
+})
 	$(".lxdh_normal").each(function(i,e) {
 		var phone = $(e).html();
 		$(e).html(changePhone(phone));
