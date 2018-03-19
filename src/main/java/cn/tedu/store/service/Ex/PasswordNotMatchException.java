@@ -13,5 +13,6 @@ public class PasswordNotMatchException extends RuntimeException implements Seria
 	}
 public PasswordNotMatchException(String message) {
 		super(message);
+		
 	}
 }

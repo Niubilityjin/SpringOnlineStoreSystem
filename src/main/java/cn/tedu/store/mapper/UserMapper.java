@@ -15,6 +15,7 @@ public interface UserMapper {
 	 * @return
 	 */
 	User getUserByUsername(String username);
+	
 	/**
 	 * 通过邮箱查询数据,如果有,自然会返回
 	 * @param email 要查询的邮箱

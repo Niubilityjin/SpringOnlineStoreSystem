@@ -17,6 +17,7 @@ public interface IUserService {
 	 * @param oldPassword 旧密码
 	 * @param newPassword 新密码
 	 */
+	
 	void changePassword(Integer id,String oldPassword,String newPassword);
 	
 	void updatePerson(Integer id,String username,Integer gender,String phone,String email);

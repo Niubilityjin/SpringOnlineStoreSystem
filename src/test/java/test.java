@@ -141,6 +141,7 @@ public class test {
 			IUserService.class);
 		userService.changePassword(9, "666666", "8888888");
 	}
+	
 	@Test
 	public void testUpdateUser() {
 		AbstractApplicationContext ac=new ClassPathXmlApplicationContext("spring-dao.xml","spring-service.xml");

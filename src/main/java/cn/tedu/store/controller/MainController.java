@@ -10,6 +10,7 @@ public class MainController {
 	@RequestMapping("/showIndex.do")
 	public String showIndex() {
 		return "index";
+		
 	}
 	
 }

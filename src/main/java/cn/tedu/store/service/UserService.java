@@ -125,6 +125,7 @@ public class UserService implements IUserService{
 				}else {//else根据输入的username在表中查询到的资料结果和要修改用户不一样且不为空
 					throw new UsernameAlreadyExistException("此用户名已被占用");
 				}
+				
 			}
 		}
 		user.setId(id);

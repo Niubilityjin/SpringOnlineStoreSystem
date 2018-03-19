@@ -21,6 +21,7 @@
 		);
 
 </insert>
+
 <select id="getUserByUsername" resultType="cn.tedu.store.bean.User">
 	select
 		id,username,password,

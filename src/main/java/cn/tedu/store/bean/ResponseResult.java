@@ -16,6 +16,7 @@ public class ResponseResult<T> implements Serializable{
 		this.state = state;
 		this.message = message;
 		this.data = data;
+		
 	}
 	public ResponseResult(Integer state, String message) {
 		super();

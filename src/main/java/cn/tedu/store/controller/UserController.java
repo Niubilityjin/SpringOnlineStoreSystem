@@ -150,7 +150,6 @@ public class UserController extends BaseController{
 					
 					rr=new ResponseResult<Void>(0, e.getMessage());
 				}
-				
 			
 			return rr;		
 		}

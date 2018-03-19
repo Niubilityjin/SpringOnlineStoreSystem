@@ -54,6 +54,7 @@
 				value="cn.tedu.store.mapper" />
 		</bean>
 		
+		
 		<!-- 配置SqlSessionFactoryBean -->
 		<bean
 			class="org.mybatis.spring.SqlSessionFactoryBean">

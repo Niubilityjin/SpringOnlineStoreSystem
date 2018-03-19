@@ -25,7 +25,6 @@
 		<!-- 配置组件扫描 -->
 		<context:component-scan 
 			base-package="cn.tedu.store.service" />
- 	
 </beans>
 
 
