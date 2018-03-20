@@ -40,7 +40,7 @@
         </div>
         <!--收货人信息填写栏-->
         <div class="rs_content">
-        	<form method="post" action="">
+        	<form method="post" action="Address.do">
 	            <!--收货人姓名-->
 	            <div class="recipients">
 	                <span class="red">*</span><span class="kuan">收货人：</span><input type="text" name="receiverName" id="receiverName"/>
@@ -89,36 +89,32 @@
                 <div class="aim_title">
                     <span class="dzmc dzmc_title">地址名称</span><span class="dzxm dzxm_title">姓名</span><span class="dzxq dzxq_title">地址详情</span><span class="lxdh lxdh_title">联系电话</span><span class="operation operation_title">操作</span>
                 </div>
+                <c:forEach items="${listAddress}" var="address">
+                <c:if test="${address.isDefault==1}">
                 <div class="aim_content_one aim_active">
-                    <span class="dzmc dzmc_active">办公室</span>
-                    <span class="dzxm dzxm_normal">杨洋</span>
-                    <span class="dzxq dzxq_normal">北京市海淀区北下关街道中鼎大厦B座331</span>
-                    <span class="lxdh lxdh_normal">18435110514</span>
+                    <span class="dzmc dzmc_active">${address.recvTag}</span>
+                    <span class="dzxm dzxm_normal">${address.recvName}</span>
+                    <span class="dzxq dzxq_normal">${address.recvDistrict}${address.recvAddr}</span>
+                    <span class="lxdh lxdh_normal">${address.recvPhone}</span>
                     <span class="operation operation_normal">
                     	<span class="aco_change">修改</span>|<span class="aco_delete">删除</span>
                     </span>
                     <span class="swmr swmr_normal"></span>
                 </div>
+                </c:if>
+                 <c:if test="${address.isDefault==0}">
                 <div class="aim_content_two">
-                    <span class="dzmc dzmc_normal">家里</span>
-                    <span class="dzxm dzxm_normal">杨洋</span>
-                    <span class="dzxq dzxq_normal">北京市大兴区西红门镇瑞海家园</span>
-                    <span class="lxdh lxdh_normal">13788882346</span>
+                    <span class="dzmc dzmc_normal">${address.recvTag}</span>
+                    <span class="dzxm dzxm_normal">${address.recvName}</span>
+                    <span class="dzxq dzxq_normal">${address.recvDistrict}${address.recvAddr}</span>
+                    <span class="lxdh lxdh_normal">${address.recvPhone}</span>
                     <span class="operation operation_normal">
                     	<span class="aco_change">修改</span>|<span class="aco_delete">删除</span>
                     </span>
                     <span class="swmr swmr_normal">设为默认</span>
                 </div>
-                <div class="aim_content_three">
-                    <span class="dzmc dzmc_normal">宿舍</span>
-                    <span class="dzxm dzxm_normal">杨洋</span>
-                    <span class="dzxq dzxq_normal">山西省小店区山西大学商务学院</span>
-                    <span class="lxdh lxdh_normal">13799992347</span>
-                    <span class="operation operation_normal">
-                    	<span class="aco_change">修改</span>|<span class="aco_delete">删除</span>
-                    </span>
-                    <span class="swmr swmr_normal">设为默认</span>
-                </div>
+                 </c:if>
+                </c:forEach>
             </div>
         </div>
     </div>

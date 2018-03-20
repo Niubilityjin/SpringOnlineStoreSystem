@@ -9,7 +9,7 @@
 			recv_name,recv_province,recv_city,recv_area,
 			 recv_district,recv_addr,recv_phone,recv_tel,
 			 recv_zip,recv_tag,is_default,created_user,created_time,
-			 modified_user,modified_time
+			 modified_user,modified_time,Uid
 			
 			
 		) values(
@@ -20,7 +20,33 @@
 			#{recvZip},#{recvTag},
 			#{isDefault},#{createdUser},
 			#{createdTime},#{modifiedUser},
-			#{modifiedTime}
+			#{modifiedTime},#{Uid}
 		);
 
-</insert></mapper>
+</insert>
+<select id="getAddressByUid" resultType="cn.tedu.store.bean.Address">
+	select
+		id,Uid,
+		recv_name as recvName,
+		recv_province as recvProvince,
+		recv_city as recvCity,
+		recv_area as recvArea,
+		recv_district as recvDistrict,
+		recv_addr as recvAddr,
+		recv_phone as recvPhone,
+		recv_tel as recvTel,
+		recv_zip as recvZip,
+		recv_tag as recvTag,
+		is_default as isDefault,
+		created_user as createdUser,
+		created_time as createdTime,
+		modified_user as modifiedUser,
+		modified_time as modifiedTime
+	from
+		t_address
+	where
+		Uid=#{Uid};
+
+</select>
+
+</mapper>

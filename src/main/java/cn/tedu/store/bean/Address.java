@@ -10,6 +10,7 @@ public class Address implements Serializable{
 	 */
 	private static final long serialVersionUID = -2097237364865566334L;
 	private Integer id;
+	private Integer Uid;
 	private String recvName;
 	private String recvProvince;
 	private String recvCity;
@@ -30,9 +31,10 @@ public class Address implements Serializable{
 	public Address() {
 		super();
 	}
-	public Address(String recvName, String recvProvince, String recvCity, String recvArea, String recvDistrict,
-			String recvAddr, String recvPhone) {
+	public Address(Integer uid, String recvName, String recvProvince, String recvCity, String recvArea,
+			String recvDistrict, String recvAddr, String recvPhone, Date modifiedTime) {
 		super();
+		Uid = uid;
 		this.recvName = recvName;
 		this.recvProvince = recvProvince;
 		this.recvCity = recvCity;
@@ -40,12 +42,14 @@ public class Address implements Serializable{
 		this.recvDistrict = recvDistrict;
 		this.recvAddr = recvAddr;
 		this.recvPhone = recvPhone;
+		this.modifiedTime = modifiedTime;
 	}
-	public Address(Integer id, String recvName, String recvProvince, String recvCity, String recvArea,
+	public Address(Integer id, Integer uid, String recvName, String recvProvince, String recvCity, String recvArea,
 			String recvDistrict, String recvAddr, String recvPhone, String recvTel, String recvZip, String recvTag,
 			Integer isDefault, String createdUser, Date createdTime, String modifiedUser, Date modifiedTime) {
 		super();
 		this.id = id;
+		Uid = uid;
 		this.recvName = recvName;
 		this.recvProvince = recvProvince;
 		this.recvCity = recvCity;
@@ -64,16 +68,17 @@ public class Address implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "Address [id=" + id + ", recvName=" + recvName + ", recvProvince=" + recvProvince + ", recvCity="
-				+ recvCity + ", recvArea=" + recvArea + ", recvDistrict=" + recvDistrict + ", recvAddr=" + recvAddr
-				+ ", recvPhone=" + recvPhone + ", recvTel=" + recvTel + ", recvZip=" + recvZip + ", recvTag=" + recvTag
-				+ ", isDefault=" + isDefault + ", createdUser=" + createdUser + ", createdTime=" + createdTime
+		return "Address [id=" + id + ", Uid=" + Uid + ", recvName=" + recvName + ", recvProvince=" + recvProvince
+				+ ", recvCity=" + recvCity + ", recvArea=" + recvArea + ", recvDistrict=" + recvDistrict + ", recvAddr="
+				+ recvAddr + ", recvPhone=" + recvPhone + ", recvTel=" + recvTel + ", recvZip=" + recvZip + ", recvTag="
+				+ recvTag + ", isDefault=" + isDefault + ", createdUser=" + createdUser + ", createdTime=" + createdTime
 				+ ", modifiedUser=" + modifiedUser + ", modifiedTime=" + modifiedTime + "]";
 	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((Uid == null) ? 0 : Uid.hashCode());
 		result = prime * result + ((createdTime == null) ? 0 : createdTime.hashCode());
 		result = prime * result + ((createdUser == null) ? 0 : createdUser.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
@@ -101,6 +106,11 @@ public class Address implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		Address other = (Address) obj;
+		if (Uid == null) {
+			if (other.Uid != null)
+				return false;
+		} else if (!Uid.equals(other.Uid))
+			return false;
 		if (createdTime == null) {
 			if (other.createdTime != null)
 				return false;
@@ -188,6 +198,12 @@ public class Address implements Serializable{
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public Integer getUid() {
+		return Uid;
+	}
+	public void setUid(Integer uid) {
+		Uid = uid;
 	}
 	public String getRecvName() {
 		return recvName;
@@ -279,5 +295,10 @@ public class Address implements Serializable{
 	public void setModifiedTime(Date modifiedTime) {
 		this.modifiedTime = modifiedTime;
 	}
-
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
+	
 }
