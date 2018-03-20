@@ -23,8 +23,8 @@ public class test {
 		user.setPhone("123");
 		user.setEmail("2222");
 		user.setGender(1);
-		userMapper.insert(
-				user);
+		userMapper.insert
+		(user);
 		ac.close();
 		
 	
