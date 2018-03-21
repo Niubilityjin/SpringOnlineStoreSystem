@@ -35,5 +35,17 @@ public class Addresstest {
 		IAddressService dm=ac.getBean("addressService",IAddressService.class);
 		System.out.println(dm.getAllAddessByUid(9));
 	}
+	@Test
+	public void testUpdateDefault() {
+		AbstractApplicationContext ac=new ClassPathXmlApplicationContext("spring-dao.xml","spring-service.xml");
+		IAddressService dm=ac.getBean("addressService",IAddressService.class);
+		dm.updateDefault(1, 10);
+	}
+	@Test
+	public void testGetAddressById() {
+		AbstractApplicationContext ac=new ClassPathXmlApplicationContext("spring-dao.xml","spring-service.xml");
+		AddressMapper dm=ac.getBean("addressMapper",AddressMapper.class);
+		System.out.println(dm.getAddressById(10));
+	}
 	
 }

@@ -9,8 +9,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import cn.tedu.store.bean.Address;
+import cn.tedu.store.bean.ResponseResult;
 import cn.tedu.store.service.IAddressService;
 
 @Controller
@@ -60,5 +62,25 @@ public class AddressController extends BaseController{
 		System.out.println(list);
 		return "addressAdmin";
 		
+	}
+	@RequestMapping("/setDefault.do")
+	public String setDefault(Integer id,HttpSession session) {
+		adService.updateDefault(this.getUid(session), id);
+		return "redirect:../address/showAddress.do";
+	}
+	@RequestMapping("/getAddress.do")
+	@ResponseBody
+	public ResponseResult<Address> getAddress(Integer id){
+		ResponseResult<Address> rr;
+		Address address=adService.getAddressById(id);
+		System.out.println("从service层返回的"+address);
+		if(address!=null) {
+			rr=new ResponseResult<Address>(1, "数据提取成功", address);
+		}else {
+			rr=new ResponseResult<Address>(0, "数据提取失败", address);
+		}
+		
+		
+		return rr;
 	}
 }

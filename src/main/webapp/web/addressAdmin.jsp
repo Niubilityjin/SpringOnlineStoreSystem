@@ -80,7 +80,7 @@
 	            </div>
 	            <!--保存收货人信息-->
 	            <div class="save_recipient">
-	                保存收货人信息
+	                保存收货人信息  
 	            </div>
 	
     		</form>
@@ -97,7 +97,7 @@
                     <span class="dzxq dzxq_normal">${address.recvDistrict}${address.recvAddr}</span>
                     <span class="lxdh lxdh_normal">${address.recvPhone}</span>
                     <span class="operation operation_normal">
-                    	<span class="aco_change">修改</span>|<span class="aco_delete">删除</span>
+                    	<span class="aco_change"><a href="#" onclick="getAddressById(${address.id})">修改</a></span>|<span class="aco_delete">删除</span>
                     </span>
                     <span class="swmr swmr_normal"></span>
                 </div>
@@ -109,9 +109,11 @@
                     <span class="dzxq dzxq_normal">${address.recvDistrict}${address.recvAddr}</span>
                     <span class="lxdh lxdh_normal">${address.recvPhone}</span>
                     <span class="operation operation_normal">
-                    	<span class="aco_change">修改</span>|<span class="aco_delete">删除</span>
+                    	<span class="aco_change"><a onclick="getAddressById(${address.id})">修改</a></span>|<span class="aco_delete">删除</span>
                     </span>
-                    <span class="swmr swmr_normal">设为默认</span>
+                    <span class="swmr swmr_normal">
+                    	<a href="#" onclick="setDefault1(${address.id})">设为默认</a>
+                    	</span>
                 </div>
                  </c:if>
                 </c:forEach>
@@ -194,6 +196,30 @@
 <script type="text/javascript" src="../js/distpicker.js"></script>
 <script type="text/javascript" src="../js/personal.js"></script>
 <script type="text/javascript">
+//定义函数,用来处理这为默认
+function getAddressById(id){
+	$.ajax({
+		"url":"../address/getAddress.do",
+		"data":"id="+id,
+		"type":"GET",
+		"dataType":"json",
+		"success":function(obj){
+			if(obj.state==1){
+				$("#receiverName").val(obj.data.recvName);
+				$("#receiverAddress").val(obj.data.recvAddr);
+				$("#receiverMobile").val(obj.data.recvTel);
+				$("#receiverZip").val(obj.data.recvZip);
+				$("#receiverPhone").val(obj.data.recvPhone);
+				$("#addressName").val(obj.data.recvTag);
+				
+				$(".save_recipient").html("修改收货人信息");
+			}
+		}
+	});
+}
+function setDefault1(id){
+	location="../address/setDefault.do?id="+id;
+}
 $(function(){
 	getProvince("-1","-1","-1");
 });

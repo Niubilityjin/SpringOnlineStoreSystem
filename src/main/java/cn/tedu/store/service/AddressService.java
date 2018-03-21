@@ -41,5 +41,15 @@ public class AddressService implements IAddressService{
 		
 		return addressMapper.getAddressByUid(uid);
 	}
+	public void updateDefault(Integer Uid, Integer id) {
+		addressMapper.setCancel(Uid);
+		addressMapper.setDefault(id);
+		
+	}
+	public Address getAddressById(Integer id) {
+		
+		return addressMapper.getAddressById(id);
+	}
+	
 
 }

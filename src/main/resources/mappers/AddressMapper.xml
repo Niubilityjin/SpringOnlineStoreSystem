@@ -48,5 +48,47 @@
 		Uid=#{Uid};
 
 </select>
+<select id="getAddressById" resultType="cn.tedu.store.bean.Address">
+	select
+		id,Uid,
+		recv_name as recvName,
+		recv_province as recvProvince,
+		recv_city as recvCity,
+		recv_area as recvArea,
+		recv_district as recvDistrict,
+		recv_addr as recvAddr,
+		recv_phone as recvPhone,
+		recv_tel as recvTel,
+		recv_zip as recvZip,
+		recv_tag as recvTag,
+		is_default as isDefault,
+		created_user as createdUser,
+		created_time as createdTime,
+		modified_user as modifiedUser,
+		modified_time as modifiedTime
+	from
+		t_address
+	where
+		id=#{id};
+
+</select>
+ <update id="setCancel"
+  parameterType="java.lang.Integer">
+  	update t_address
+  		set 
+  			is_default=0
+  		where
+  			Uid=#{Uid};
+  		
+  </update>
+  <update id="setDefault"
+  parameterType="java.lang.Integer">
+  	update t_address
+  		set 
+  			is_default=1
+  		where
+  			id=#{id};
+  		
+  </update>
 
 </mapper>
